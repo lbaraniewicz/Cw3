@@ -35,38 +35,41 @@ namespace Cw3.Controllers
 
         // GET: api/<StudentsController>
         [HttpGet]
-        public string Get()
+        public IActionResult Get()
         {
-            return JsonConvert.SerializeObject(_studenci);
+            return Ok(JsonConvert.SerializeObject(_studenci));
         }
 
         // POST api/<StudentsController>
         [HttpPost]
-        public string Post([FromBody] Student value)
+        public IActionResult Post([FromBody] Student value)
         {
             var student = JsonConvert.SerializeObject(value);
             _studenci.Add(value);
-            return student;
+            return Created("", student);
         }
 
         // PUT api/<StudentsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Student value)
+        public IActionResult Put(int id, [FromBody] Student value)
         {
+            if (id < 0) return BadRequest("Wprowadzono błędne id");
             int index = _studenci.FindIndex(x => x.IdStudent == id);
             _studenci[index].Email = value.Email;
             _studenci[index].Adres = value.Adres;
             _studenci[index].NrIndeksu = value.NrIndeksu;
             _studenci[index].Imie = value.Imie;
             _studenci[index].Nazwisko = value.Nazwisko;
+            return Ok("Zaktualizowano " + id);
         }
 
         // DELETE api/<StudentsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
             int index = _studenci.FindIndex(x => x.IdStudent == id);
             _studenci.RemoveAt(index);
+            return Ok("Usunięto " + id);
         }
     }
 }
