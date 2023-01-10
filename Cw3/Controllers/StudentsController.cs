@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cw3.Models;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -43,7 +44,7 @@ namespace Cw3.Controllers
         [HttpPost]
         public string Post([FromBody] Student value)
         {
-            var student=JsonConvert.SerializeObject(value);
+            var student = JsonConvert.SerializeObject(value);
             _studenci.Add(value);
             return student;
         }
@@ -52,12 +53,12 @@ namespace Cw3.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Student value)
         {
-            int index=_studenci.FindIndex(x=>x.IdStudent==id);
-            _studenci[index].Email= value.Email;
-            _studenci[index].Adres= value.Adres;
-            _studenci[index].NrIndeksu= value.NrIndeksu;
-            _studenci[index].Imie=value.Imie;
-            _studenci[index].Nazwisko=value.Nazwisko;
+            int index = _studenci.FindIndex(x => x.IdStudent == id);
+            _studenci[index].Email = value.Email;
+            _studenci[index].Adres = value.Adres;
+            _studenci[index].NrIndeksu = value.NrIndeksu;
+            _studenci[index].Imie = value.Imie;
+            _studenci[index].Nazwisko = value.Nazwisko;
         }
 
         // DELETE api/<StudentsController>/5

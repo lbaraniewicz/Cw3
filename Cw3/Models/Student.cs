@@ -1,4 +1,4 @@
-﻿namespace Cw3
+﻿namespace Cw3.Models
 {
     public class Student
     {
